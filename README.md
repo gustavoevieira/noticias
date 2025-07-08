@@ -125,7 +125,7 @@ Este projeto serve como uma base sólida. Futuras melhorias podem incluir:
 
 ## 👨‍💻 Autor
 
-* **Mika** - [linkedIn(https://www.linkedin.com/in/gustavo-ev) | gustavoevieira.com.br | https://github.com/gustavoevieira
+* **Mika** - [linkedIn](https://www.linkedin.com/in/gustavo-ev) | [Portfolio](https://gustavoevieira.github.io/portfolio/) | [gitHub](https://github.com/gustavoevieira)
 
 ---
 
