@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/database.php';
+require_once 'verificar_login.php';
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = intval($_GET['id']);

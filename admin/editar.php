@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/database.php';
+require_once 'verificar_login.php';
 
 $noticia = null;
 $mensagem = '';
@@ -43,8 +44,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $target_file = $target_dir . $unique_name;
 
         $check = getimagesize($_FILES['nova_imagem_destaque']['tmp_name']);
-        if($check !== false) {
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        if ($check !== false) {
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                 $mensagem = "Desculpe, apenas arquivos JPG, JPEG, PNG e GIF são permitidos para a nova imagem.";
             } else {
                 if (move_uploaded_file($_FILES['nova_imagem_destaque']['tmp_name'], $target_file)) {
@@ -80,7 +81,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $result_recarregar = $stmt_recarregar->get_result();
             $noticia = $result_recarregar->fetch_assoc();
             $stmt_recarregar->close();
-
         } else {
             $mensagem = "Erro ao atualizar notícia: " . $stmt->error;
         }
@@ -98,30 +98,84 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Editar Notícia</title>
     <link rel="stylesheet" href="../public/css/style.css">
     <style>
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
         .form-group input[type="text"],
-        .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .form-group textarea { min-height: 150px; resize: vertical; }
-        .form-group input[type="file"] { padding: 5px 0; }
-        .form-actions { margin-top: 20px; }
-        .form-actions button { background: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
-        .form-actions button:hover { background: #0056b3; }
-        .message { padding: 10px; margin-bottom: 20px; border-radius: 5px; font-weight: bold; }
-        .message.success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
-        .message.error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input[type="file"] {
+            padding: 5px 0;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .form-actions button:hover {
+            background: #0056b3;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
 
         .current-image {
             margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
         }
+
         .current-image img {
             max-width: 200px;
             height: auto;
@@ -130,6 +184,7 @@ $conn->close();
             display: block;
             margin: 0 auto;
         }
+
         .current-image p {
             font-size: 0.9em;
             color: #666;
@@ -137,6 +192,7 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Área Administrativa</h1>
@@ -145,6 +201,7 @@ $conn->close();
                 <li><a href="../index.php">Ver Site</a></li>
                 <li><a href="index.php">Gerenciar Notícias</a></li>
                 <li><a href="adicionar.php">Adicionar Notícia</a></li>
+                <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
     </header>
@@ -213,4 +270,5 @@ $conn->close();
         <p>&copy; <?php echo date("Y"); ?> Portal de Notícias - Admin.</p>
     </footer>
 </body>
+
 </html>

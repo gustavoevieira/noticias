@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/database.php';
+require_once 'verificar_login.php';
 
 $mensagem = '';
 
@@ -35,17 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $target_file = $target_dir . $unique_name;
 
             $check = getimagesize($_FILES['imagem_destaque']['tmp_name']);
-            if($check === false) {
+            if ($check === false) {
                 $mensagem = "O arquivo enviado não é uma imagem válida.";
                 $uploadOk = 0;
             }
 
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                 $mensagem = "Desculpe, apenas arquivos JPG, JPEG, PNG e GIF são permitidos.";
                 $uploadOk = 0;
             }
 
-            if ($_FILES['imagem_destaque']['size'] > 5000000) { 
+            if ($_FILES['imagem_destaque']['size'] > 5000000) {
                 $mensagem = "Desculpe, sua imagem é muito grande. Tamanho máximo: 5MB.";
                 $uploadOk = 0;
             }
@@ -89,6 +90,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,11 +100,13 @@ $conn->close();
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         .form-group input[type="text"],
         .form-group textarea {
             width: 100%;
@@ -111,16 +115,20 @@ $conn->close();
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .form-group textarea {
             min-height: 150px;
             resize: vertical;
         }
+
         .form-group input[type="file"] {
             padding: 5px 0;
         }
+
         .form-actions {
             margin-top: 20px;
         }
+
         .form-actions button {
             background: #007bff;
             color: #fff;
@@ -130,20 +138,24 @@ $conn->close();
             cursor: pointer;
             font-size: 1em;
         }
+
         .form-actions button:hover {
             background: #0056b3;
         }
+
         .message {
             padding: 10px;
             margin-bottom: 20px;
             border-radius: 5px;
             font-weight: bold;
         }
+
         .message.success {
             background-color: #d4edda;
             color: #155724;
             border-color: #c3e6cb;
         }
+
         .message.error {
             background-color: #f8d7da;
             color: #721c24;
@@ -151,6 +163,7 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Área Administrativa</h1>
@@ -159,6 +172,7 @@ $conn->close();
                 <li><a href="../index.php">Ver Site</a></li>
                 <li><a href="index.php">Gerenciar Notícias</a></li>
                 <li><a href="adicionar.php">Adicionar Notícia</a></li>
+                <li><a href="logout.php">Sair</a></li>
             </ul>
         </nav>
     </header>
@@ -203,4 +217,5 @@ $conn->close();
         <p>&copy; <?php echo date("Y"); ?> Portal de Notícias - Admin.</p>
     </footer>
 </body>
+
 </html>
